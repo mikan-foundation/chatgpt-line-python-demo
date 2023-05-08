@@ -53,10 +53,12 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     # 送られてきたメッセージを変数に格納します
-    msg = event.message.tex
-
+    msg = event.message.text
     # ユーザーからのメッセージをAPIに送る形に整形します
-    messages =  [{"role":"user", "content": msg}]
+    messages =  [    
+        {"role": "system", "content": "ギャルっぽく回答してください"},
+        {"role":"user", "content": msg}
+        ]
 
     # APIに過去のmessagesのやりとりを送ります
     response = openai.ChatCompletion.create(
